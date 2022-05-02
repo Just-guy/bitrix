@@ -155,7 +155,7 @@ public function Register($USER_LOGIN, $USER_NAME, $USER_LAST_NAME, $USER_PASSWOR
 				);
 				//===
 
-				//=== Устанавливаем сайт для контекста (для смс, возможно смс службе необходимы данные, какой сайт отправляет смс)
+				//=== Устанавливаем сайт для контекста (для смс, возможно смс службе необходимы данные, с какого сайта отправляется смс)
 				$sms->setSite($arFields["SITE_ID"]);
 				//===
 
@@ -163,7 +163,7 @@ public function Register($USER_LOGIN, $USER_NAME, $USER_LAST_NAME, $USER_PASSWOR
 				$smsResult = $sms->send(true);
 				//===
 
-				//=== Не до конца разобрался, но возможно это какой-то индивидуальный токен, который присваивается каждой смске
+				//=== Не до конца разобрался, но возможно это какой-то индивидуальный токен или ID, который присваивается каждой смске
 				$signedData = \Bitrix\Main\Controller\PhoneAuth::signData(['phoneNumber' => $phoneNumber]);
 
 				//=== Если смс доставлена успешно, то формируем сообщение с результатом
@@ -191,7 +191,7 @@ public function Register($USER_LOGIN, $USER_NAME, $USER_LAST_NAME, $USER_PASSWOR
 			}
 			//===
 			else
-			//=== Если регистрация по телефону не разрешена и и значение поля «Номер телефона» пустое, то регистрируем без всей этой фигни и отправляем сообщение об успешной регистрации
+			//=== Если регистрация по телефону не разрешена и значение поля «Номер телефона» пустое, то регистрируем без всей этой фигни и отправляем сообщение об успешной регистрации
 			{
 				$result_message = array(
 					"MESSAGE" => GetMessage("USER_REGISTER_OK"),
@@ -201,67 +201,114 @@ public function Register($USER_LOGIN, $USER_NAME, $USER_LAST_NAME, $USER_PASSWOR
 			}
 			//===
 
+			//=== Помещаем в переменные ID пользователя и уникальную строку
 			$arFields["USER_ID"] = $ID;
 			$arFields["CHECKWORD"] = $checkword;
+			//===
 
 			$arEventFields = $arFields;
+
+			//=== Удаляем переменные
 			unset($arEventFields["PASSWORD"]);
 			unset($arEventFields["CONFIRM_PASSWORD"]);
 			unset($arEventFields["~CHECKWORD_TIME"]);
+			//===
 
+			//=== Создаем экземпляр класса для работы с почтовыми событиями
 			$event = new CEvent;
+			//===
+
+			//=== Отправляем сообщение(немедленно) о регистрации нового пользователя
 			$event->SendImmediate("NEW_USER", $arEventFields["SITE_ID"], $arEventFields);
+			//===
+
+			//=== Если пользователю необходимо подтвердить регистрацию, то высылаем ему письмо
 			if($bConfirmReq)
 			{
 				$event->SendImmediate("NEW_USER_CONFIRM", $arEventFields["SITE_ID"], $arEventFields);
 			}
+			//===
 		}
+		//===
 		else
+		//=== Если значения не сохранены в пользовательские поля, выдаем ошибку
 		{
 			$APPLICATION->ThrowException($this->LAST_ERROR);
 			$result_message = array("MESSAGE"=>$this->LAST_ERROR, "TYPE"=>"ERROR");
 		}
+		//===
 	}
 
+	//=== Если сообщение с результатом является массивом, то:
 	if(is_array($result_message))
 	{
+		//=== Если тип сообщение равен "OK", то:
 		if($result_message["TYPE"] == "OK")
 		{
+			//=== Если в главном модуле работает функция записи регистрации нового пользователя в лог, то:
 			if(COption::GetOptionString("main", "event_log_register", "N") === "Y")
 			{
+				//=== Записывае информацию о новой регистрации в лог
 				$res_log["user"] = ($USER_NAME != "" || $USER_LAST_NAME != "") ? trim($USER_NAME." ".$USER_LAST_NAME) : $USER_LOGIN;
 				CEventLog::Log("SECURITY", "USER_REGISTER", "main", $ID, serialize($res_log));
+				//===
 			}
+			//===
 		}
+		//===
 		else
 		{
+			//=== Если в главном модуле работает функция записи ошибок регистрации в лог, то:
 			if(COption::GetOptionString("main", "event_log_register_fail", "N") === "Y")
 			{
+				//=== Записывае ошибку регистрации в лог
 				CEventLog::Log("SECURITY", "USER_REGISTER_FAIL", "main", $ID, $result_message["MESSAGE"]);
+				//===
 			}
+			//===
 		}
 	}
+	//===
 
 	//authorize succesfully registered user, except email or phone confirmation is required
+	//=== Авторизовать успешно зарегистрированного пользователя, за исключением того, что требуется подтверждение по электронной почте или телефону
 	$isAuthorize = false;
+
+	//=== Если имеетс ID пользователя, он автивен и регистрация по телефону отсутствовала(не была обязательной), то :
 	if($ID !== false && $arFields["ACTIVE"] === "Y" && $phoneReg === false)
 	{
+		//=== Происходит авторизация
 		$isAuthorize = $this->Authorize($ID);
+		//===
 	}
+	//===
 
+	// Помещаем в переменную ID пользовательского соглашения, которое используется на сайте
 	$agreementId = intval(COption::getOptionString("main", "new_user_agreement", ""));
+
+	//=== Если имеем ID пользовательского соглашения и авторизованного пользователя, то:
 	if ($agreementId && $isAuthorize)
 	{
+		//=== Получаем объект пользовательского соглашения по ID и помещаем его в переменную
 		$agreementObject = new \Bitrix\Main\UserConsent\Agreement($agreementId);
+		//===
+
+		//=== Если объект существует, активен и пользователь согласился с пользовательским соглашением, то:
 		if ($agreementObject->isExist() && $agreementObject->isActive() && $_REQUEST["USER_AGREEMENT"] == "Y")
 		{
 			\Bitrix\Main\UserConsent\Consent::addByContext($agreementId, "main/reg", "register");
 		}
+		//===
 	}
+	//===
 
 	$arFields["RESULT_MESSAGE"] = $result_message;
+	
+	//=== Проводим через цикл список всех обработчиков события "OnAfterUserRegister" в главном модуле(main)
 	foreach (GetModuleEvents("main", "OnAfterUserRegister", true) as $arEvent)
+		//=== Запускаем обаботчики и передаем им параметры $arFields
 		ExecuteModuleEventEx($arEvent, array(&$arFields));
-
+		//===
 	return $arFields["RESULT_MESSAGE"];
+	//===
 }
