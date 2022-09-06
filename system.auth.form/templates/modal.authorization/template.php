@@ -1,5 +1,6 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 CJSCore::Init();
+$APPLICATION->AddHeadString(require(realpath(dirname(__FILE__)) . '/ajax.php'));
 
 if ($arResult['SHOW_ERRORS'] == 'Y' && $arResult['ERROR'])
 	ShowMessage($arResult['ERROR_MESSAGE']);
@@ -188,5 +189,3 @@ if ($arResult['SHOW_ERRORS'] == 'Y' && $arResult['ERROR'])
 		</form>
 	<? endif ?>
 </div>
-
-<? require(realpath(dirname(__FILE__)) . '/ajax.php');
