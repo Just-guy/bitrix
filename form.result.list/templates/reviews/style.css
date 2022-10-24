@@ -1,78 +1,77 @@
-table.form-table
-{
-	width:100%;
-	background-color:white;
-	border-collapse:collapse;
-	font-size:100%;
-	font-weight:normal;
-	line-height:160%;
+.reviews-list__block:last-child {
+	margin-bottom: 40px;
 }
-
-table.form-table th, table.form-table td
-{
-	border:1px solid #ADC3D5;
-	padding: 5px 5px;
-	vertical-align:top;
+.reviews-list__block {
+	padding: 30px;
+	margin-bottom: 30px;
+	background: #ffffff;
+	border: 1px solid #f5f5f5;
+	border-radius: 15px;
 }
-
-table.form-table th
-{
-	background-image:url(images/table_head.gif);
-	background-repeat:repeat-x;
-	text-align: left;
-	color:#25639A;
+.reviews-list__top {
+	display: flex;
+	justify-content: space-between;
 }
-
-
-table.form-table td
-{
-	padding: 15px 5px;
+.reviews-list__date {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 18px;
+	color: #999999;
+	margin-bottom: 20px;
 }
-
-table.form-filter-table
-{
-	background-color:white;
-	font-size:100%;
-	border-collapse:collapse;
+.reviews-list__rating {
+	display: flex;
 }
-
-table.form-filter-table th
-{
-	background-image:url(images/table_head.gif);
-	background-repeat:repeat-x;
-	text-align: center;
-	font-size:100%;
-	color:#25639A;
+.reviews-list__rating-start:last-child {
+	margin-right: 0px;
 }
-
-table.form-filter-table td, table.form-filter-table th
-{
-	padding:3px;
-	border:1px solid #ADC3D5;
+.reviews-list__rating-start {
+	margin-right: 5px;
 }
-
-table.form-filter-table td
-{
-	vertical-align: top;
+.reviews-list__name {
+	margin-bottom: 10px;
+	font-family: "Playfair Display";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 28px;
+	color: #544a3e;
 }
-
-
-.form-filter-none {
+.reviews-list__value {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	color: #333333;
+}
+.reviews__lazy-load.reviews__lazy-load_disabled > span {
+	cursor: context-menu;
+	opacity: 0.1;
+}
+.reviews__lazy-load {
+	display: inline-block;
+}
+.reviews-list__loader {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("/local/components/bitrix/form.result.list/templates/reviews/images/loader.gif");
+	height: 100px;
+	width: 200px;
 	display: none;
+	margin: 0 auto;
 }
-
-.form-filter-inline {
-	display: inline;
+.reviews__lazy-load > span {
+	background: #0d473f;
+	border-radius: 5px;
+	font-weight: 700;
+	font-size: 14px;
+	text-align: center;
+	text-transform: uppercase;
+	color: #ffffff;
+	height: 50px;
+	display: inline-block;
+	line-height: 50px;
+	width: 200px;
+	cursor: pointer;
+	transition: 0.2s ease;
 }
-
-table.form-table table.form-results-header-inline td, table.form-table table.form-results-header-inline th {
-	border: 0px !important;
-	padding: 0px !important;
-	background: none !important;
-}
-
-.form-anstext {color:#166122;}
-.form-ansvalue {color:#FF0000;}
-
-.form-filteron {color:#FF0000;}
-.form-filteroff {color:#1C7729;}

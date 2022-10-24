@@ -5,7 +5,6 @@
  * @var CatalogElementComponent $component
  */
 
-
 foreach ($arResult["arrAnswers"] as $keyAnswer => $valueAnswer) {
 	foreach ($valueAnswer as $keyQuestions => $valueQuestions) {
 		foreach ($valueQuestions as $key => $value) {
