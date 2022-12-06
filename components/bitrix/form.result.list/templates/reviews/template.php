@@ -4,6 +4,8 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 <div class="reviews-list">
 	<div class="reviews-list__shell" data-ajax-next>
 		<? foreach ($arResult["arrAnswers"] as $answerKey => $answerValue) { ?>
+			<? //if($answerValue["REVIEWS_ID_ELEMENT"]["USER_TEXT"] == $arParams["ID_ELEMENT"] || $arParams["ID_ELEMENT"] == 'ALL'): 
+			?>
 			<div class="reviews-list__block">
 				<div class="reviews-list__top">
 					<div class="reviews-list__name">
@@ -37,30 +39,39 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 					</div>
 				</div>
 			</div>
+			<? //endif; 
+			?>
 		<? } ?>
 	</div>
-	<? if ($arParams["USE_LAZY_LOAD"]) : ?>
-		<span class="reviews-list__loader"></span>
-		<? $arParamsCleared = array_filter($arParams,  function ($key) {
-			return strpos($key, '~') === false;
-		}, ARRAY_FILTER_USE_KEY);
+	<span class="reviews-list__loader"></span>
+	<div class="reviews-list__button-container">
+		<? if ($arParams["USE_LAZY_LOAD"]) : ?>
+			<? $arParamsCleared = array_filter($arParams,  function ($key) {
+				return strpos($key, '~') === false;
+			}, ARRAY_FILTER_USE_KEY);
 
-		$pageNavCurrent = $arResult["NAV_RESULT"]["NavPageNomer"];
-		$pageNavTotal = $arResult["NAV_RESULT"]["NavPageCount"];
+			$pageNavCurrent = $arResult["NAV_RESULT"]["NavPageNomer"];
+			$pageNavTotal = $arResult["NAV_RESULT"]["NavPageCount"];
+			$pageNavNum = $arResult["NAV_RESULT"]["NavNum"];
 
-		$arParamsSigned = \Bitrix\Main\Component\ParameterSigner::signParameters($component->__name, $arParamsCleared)
-		?>
-		<div class="reviews__lazy-load <?= ($pageNavCurrent >= $pageNavTotal ? 'reviews__lazy-load_disabled' : '') ?> opacity-hover">
-			<span
-			data-ajax-src="<?= $templateFolder ?>/ajax.php"
-			data-params="<?= $arParamsSigned ?>"
-			data-component-name="<?= $component->__name ?>"
-			data-template-name="<?= $templateName ?>"
-			data-pagenav-total="<?= $pageNavTotal ?>"
-			data-pagenav-current="<?= $pageNavCurrent ?>">Показать больше</span>
-		</div>
-	<? endif; ?>
+			$arParamsSigned = \Bitrix\Main\Component\ParameterSigner::signParameters($component->__name, $arParamsCleared); ?>
+			<div class="reviews__lazy-load <?= ($pageNavCurrent >= $pageNavTotal ? 'reviews__lazy-load_disabled ' : '') ?>opacity-hover">
+				<span data-ajax-src="<?= $templateFolder ?>/ajax.php"
+				data-params="<?= $arParamsSigned ?>"
+				data-component-name="<?= $component->__name ?>"
+				data-template-name="<?= $templateName ?>"
+				data-pagenav-total="<?= $pageNavTotal ?>"
+				data-pagenav-current="<?= $pageNavCurrent ?>"
+				data-pagenav-num="<?= $pageNavNum ?>">
+				<?= $arParams['TITLE_BUTTON'] ?></span>
+			</div>
+		<? endif; ?>
 
-	<? //= $arResult["pager"] 
-	?>
+		<? if ($arParams["SRC_ALL_REVIEWS"]) : ?>
+			<a href="<?= $arParams["SRC_ALL_REVIEWS"] ?>" class="reviews-list__all-reviews opacity-hover">Все отзывы</a>
+		<? endif; ?>
+
+		<? //= $arResult["pager"] ?>
+	</div>
 </div>
+<!--  -->

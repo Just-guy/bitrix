@@ -294,7 +294,7 @@ if (CModule::IncludeModule("form"))
 					"GUEST_ID"					=> $GLOBALS["find_guest_id"],
 					"GUEST_ID_EXACT_MATCH"		=> $GLOBALS["find_guest_id_exact_match"],
 					"SESSION_ID"				=> $GLOBALS["find_session_id"],
-					"SESSION_ID_EXACT_MATCH"	=> $GLOBALS["find_session_id_exact_match"]
+					"SESSION_ID_EXACT_MATCH"	=> $GLOBALS["find_session_id_exact_match"],
 					);
 				if (is_array($arResult["arrFORM_FILTER"]))
 				{
@@ -319,6 +319,17 @@ if (CModule::IncludeModule("form"))
 					}
 				}
 			}
+		}
+
+		if (!empty($arParams["ID_ELEMENT"])) {
+			$arFields[] = array(
+				"CODE" => "REVIEWS_ID_ELEMENT",
+				"PARAMETER_NAME" => "USER",
+				"FILTER_TYPE" => "text",
+				"VALUE" => $arParams["ID_ELEMENT"],
+				"EXACT_MATCH" => "Y"
+			);
+			$arFilter["FIELDS"] = $arFields;
 		}
 
 		if ($_POST['save'] <> '' && $_SERVER['REQUEST_METHOD']=="POST" && check_bitrix_sessid())
@@ -375,7 +386,8 @@ if (CModule::IncludeModule("form"))
 
 		$arResult["NAV_RESULT"] = [
 			'NavPageCount' => $rsResults->NavPageCount,
-			'NavPageNomer' => $rsResults->NavPageNomer
+			'NavPageNomer' => $rsResults->NavPageNomer,
+			'NavNum' => $rsResults->NavNum,
 		];
 
 		$arResult["pager"] = $rsResults->GetNavPrint(GetMessage("FORM_PAGES"), false, 'text', false, array('formresult', 'RESULT_ID'));
