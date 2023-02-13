@@ -1,0 +1,30 @@
+.testing-list__link:hover {
+	background-color: #d242ac;
+	color: #fff;
+}
+.testing-list__link:first-child {
+	border-bottom: none;
+}
+.testing-list__link {
+	padding: 20px;
+	width: 100%;
+	border: 1px solid #f5f5f5;
+	cursor: pointer;
+	transition: 0.2s ease;
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+.testing-list__link:hover:before {
+	opacity: 1;
+	right: 30px;
+}
+.testing-list__link:before {
+	content: "\f054";
+	position: absolute;
+	right: 100px;
+	opacity: 0;
+	transition: 0.4s ease;
+	color: #fff;
+	font: normal normal normal 14px/1 FontAwesome;
+}
