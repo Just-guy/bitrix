@@ -2,4 +2,4 @@
 
 Закидываешь в templates компонента menu и пользуешься.
 
-https://user-images.githubusercontent.com/62421873/222419273-46ba2ca3-1d4a-4b05-8808-7923ff14c598.mp4
+https://user-images.githubusercontent.com/62421873/222424806-ac0d432e-bbf3-477b-89b7-ef2676132e96.mp4
