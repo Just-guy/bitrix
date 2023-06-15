@@ -75,7 +75,7 @@ $arComponentParameters = [
 	"PARAMETERS" => [
 		"IBLOCK_TYPE" => [
 			"PARENT" => "BASE",
-			"NAME" => GetMessage("C_IBLOCK_TYPE"),
+			"NAME" => GetMessage("Z_IBLOCK_TYPE"),
 			"TYPE" => "LIST",
 			"VALUES" => $arTypesEx,
 			"DEFAULT" => "",
@@ -83,7 +83,7 @@ $arComponentParameters = [
 		],
 		"IBLOCK_ID" => [
 			"PARENT" => "BASE",
-			"NAME" => GetMessage("C_IBLOCK_ID"),
+			"NAME" => GetMessage("Z_IBLOCK_ID"),
 			"TYPE" => "LIST",
 			"VALUES" => $finalDataIblock,
 			"DEFAULT" => '={$_REQUEST["ID"]}',
@@ -92,7 +92,7 @@ $arComponentParameters = [
 		],
 		"SECTION_1_LEVEL" => array(
 			"PARENT" => "BASE",
-			"NAME" => GetMessage("C_SECTION_1_LEVEL"),
+			"NAME" => GetMessage("Z_SECTION_1_LEVEL"),
 			"TYPE" => "LIST",
 			"MULTIPLE" => "N",
 			"VALUES" => $finalDataSectionsLevel1,
@@ -101,7 +101,7 @@ $arComponentParameters = [
 		),
 		"SECTION_2_LEVEL" => array(
 			"PARENT" => "BASE",
-			"NAME" => GetMessage("C_SECTION_2_LEVEL"),
+			"NAME" => GetMessage("Z_SECTION_2_LEVEL"),
 			"TYPE" => "LIST",
 			"MULTIPLE" => "N",
 			"VALUES" => $finalDataSectionsLevel2,
@@ -110,7 +110,7 @@ $arComponentParameters = [
 		),
 		"SECTION_3_LEVEL" => array(
 			"PARENT" => "BASE",
-			"NAME" => GetMessage("C_SECTION_3_LEVEL"),
+			"NAME" => GetMessage("Z_SECTION_3_LEVEL"),
 			"TYPE" => "LIST",
 			"MULTIPLE" => "N",
 			"VALUES" => $finalDataSectionsLevel3,
@@ -119,26 +119,20 @@ $arComponentParameters = [
 		),
 		"LIST_OF_ELEMENTS" => [
 			"PARENT" => "DATA_SOURCE",
-			"NAME" => GetMessage("C_LIST_OF_ELEMENTS"),
+			"NAME" => GetMessage("Z_LIST_OF_ELEMENTS"),
 			"TYPE" => "LIST",
 			"MULTIPLE" => "Y",
 			"VALUES" => $finalDataElement,
 			"SIZE" => 10
 		],
-		"WRITE_YOUR_TITLE" => [
-			"PARENT" => "DATA_SOURCE",
-			"NAME" => GetMessage("C_WRITE_YOUR_TITLE"),
-			"TYPE" => "STRING",
-			"DEFAULT" => ""
-		],
 		"PROPERTY_LIST" => array(
 			"PARENT" => "BASE",
-			"NAME" => GetMessage("C_PROPERTY_LIST"),
+			"NAME" => GetMessage("Z_PROPERTY_LIST"),
 			"TYPE" => "LIST",
 			"MULTIPLE" => "Y",
 			"VALUES" => $finalPropertyArray,
 			"SIZE" => 10,
 		),
-		"CACHE_TIME" => ["DEFAULT" => 3600],
+		"CACHE_TIME" => ["DEFAULT" => 3600000],
 	],
 ];
