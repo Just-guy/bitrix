@@ -51,6 +51,7 @@ if ($this->StartResultCache(false, [])) {
 	$arSort = array("SORT" => "ASC", "DATE_ACTIVE_FROM" => "DESC", "ID" => "DESC");
 	$arFilter = array("IBLOCK_ID" => $arParams["IBLOCK_ID"], "SECTION_ID" => $iblockSectionID, "ID" => $arParams['LIST_OF_ELEMENTS'], "ACTIVE" => "Y", "ACTIVE_DATE" => "Y");
 	$arSelect = array("ID", "IBLOCK_ID", "NAME", "DATE_ACTIVE_FROM", "PREVIEW_TEXT", "PREVIEW_PICTURE");
+	$arSelect = array_merge($arSelect, $arParams["PROPERTY_LIST"]);
 
 	$rsElement = CIBlockElement::GetList($arSort, $arFilter, false, $arNavParams, $arSelect);
 
