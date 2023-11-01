@@ -70,6 +70,8 @@ foreach ($propertyArray as $property) {
 	$finalPropertyArray[$property['ID']] = $property['NAME'];
 }
 
+$ext = 'wmv,wma,flv,vp6,mp3,mp4,aac,jpg,jpeg,gif,png';
+
 $arComponentParameters = [
 	"GROUPS" => [],
 	"PARAMETERS" => [
@@ -90,33 +92,33 @@ $arComponentParameters = [
 			"ADDITIONAL_VALUES" => "Y",
 			"REFRESH" => "Y",
 		],
-		"SECTION_1_LEVEL" => array(
+		"SECTION_1_LEVEL" => [
 			"PARENT" => "BASE",
 			"NAME" => GetMessage("Z_SECTION_1_LEVEL"),
 			"TYPE" => "LIST",
-			"MULTIPLE" => "N",
+			"MULTIPLE" => "Y",
 			"VALUES" => $finalDataSectionsLevel1,
 			"SIZE" => 5,
 			"REFRESH" => 'Y',
-		),
-		"SECTION_2_LEVEL" => array(
-			"PARENT" => "BASE",
-			"NAME" => GetMessage("Z_SECTION_2_LEVEL"),
-			"TYPE" => "LIST",
-			"MULTIPLE" => "N",
-			"VALUES" => $finalDataSectionsLevel2,
-			"SIZE" => 5,
-			"REFRESH" => 'Y',
-		),
-		"SECTION_3_LEVEL" => array(
-			"PARENT" => "BASE",
-			"NAME" => GetMessage("Z_SECTION_3_LEVEL"),
-			"TYPE" => "LIST",
-			"MULTIPLE" => "N",
-			"VALUES" => $finalDataSectionsLevel3,
-			"SIZE" => 5,
-			"REFRESH" => 'Y',
-		),
+		],
+		//"SECTION_2_LEVEL" => [
+		//	"PARENT" => "BASE",
+		//	"NAME" => GetMessage("Z_SECTION_2_LEVEL"),
+		//	"TYPE" => "LIST",
+		//	"MULTIPLE" => "N",
+		//	"VALUES" => $finalDataSectionsLevel2,
+		//	"SIZE" => 5,
+		//	"REFRESH" => 'Y',
+		//],
+		//"SECTION_3_LEVEL" => [
+		//	"PARENT" => "BASE",
+		//	"NAME" => GetMessage("Z_SECTION_3_LEVEL"),
+		//	"TYPE" => "LIST",
+		//	"MULTIPLE" => "N",
+		//	"VALUES" => $finalDataSectionsLevel3,
+		//	"SIZE" => 5,
+		//	"REFRESH" => 'Y',
+		//],
 		"LIST_OF_ELEMENTS" => [
 			"PARENT" => "DATA_SOURCE",
 			"NAME" => GetMessage("Z_LIST_OF_ELEMENTS"),
@@ -125,14 +127,48 @@ $arComponentParameters = [
 			"VALUES" => $finalDataElement,
 			"SIZE" => 10
 		],
-		"PROPERTY_LIST" => array(
+		"PROPERTY_LIST" => [
 			"PARENT" => "BASE",
 			"NAME" => GetMessage("Z_PROPERTY_LIST"),
 			"TYPE" => "LIST",
 			"MULTIPLE" => "Y",
 			"VALUES" => $finalPropertyArray,
 			"SIZE" => 10,
-		),
+		],
+		"DISPLAY_TITLE_ELEMENT" => [
+			"PARENT" => "DATA_SOURCE",
+			"NAME" => GetMessage("Z_DISPLAY_TITLE_ELEMENT"),
+			"TYPE" => "STRING",
+			"DEFAULT" => ""
+		],
+		"USE_LAZY_LOAD" => [
+			"PARENT" => "DATA_SOURCE",
+			"NAME" => GetMessage("Z_USE_LAZY_LOAD"),
+			"TYPE" => "CHECKBOX",
+			"DEFAULT" => "N"
+		],
+		"NAME_BUTTON_LAZY_LOAD" => [
+			"PARENT" => "DATA_SOURCE",
+			"NAME" => GetMessage("Z_NAME_BUTTON_LAZY_LOAD"),
+			"TYPE" => "STRING",
+			"DEFAULT" => "Показать еще"
+		],
+		"ELEMENT_COUNT" => [
+			"PARENT" => "DATA_SOURCE",
+			"NAME" => GetMessage("Z_ELEMENT_COUNT"),
+			"TYPE" => "STRING",
+			"DEFAULT" => "15"
+		],
+		//"SELECT_FILE" => [
+		//	"PARENT" => "DATA_SOURCE",
+		//	"NAME" => GetMessage("Z_SELECT_FILE"),
+		//	"TYPE" => "FILE",
+		//	"FD_TARGET" => "F",
+		//	"FD_EXT" => $ext,
+		//	"FD_UPLOAD" => true,
+		//	"FD_USE_MEDIALIB" => true,
+		//	"FD_MEDIALIB_TYPES" => array('video', 'sound')
+		//],
 		"CACHE_TIME" => ["DEFAULT" => 3600000],
 	],
 ];

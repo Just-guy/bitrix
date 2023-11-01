@@ -13,31 +13,27 @@ if ($arParams["IBLOCK_ID"] < 1) {
 	return false;
 }
 
-if ($this->StartResultCache(false, [])) {
+$arParams['ELEMENT_COUNT'] = intval($arParams['ELEMENT_COUNT']);
+if ($arParams['ELEMENT_COUNT'] <= 0) {
+	$arParams['ELEMENT_COUNT'] = 3;
+}
+
+$arNavParams = [
+	'nTopCount' => false,
+	"nPageSize" => $arParams['ELEMENT_COUNT'],
+	//'bShowAll' => true,
+	//'iNumPage' => intval($_REQUEST["page"]),
+	//'checkOutOfRange' => true
+];
+$arNavigation = CDBResult::GetNavParams($arNavParams);
+$cacheDependence = array(false, $arNavigation);
+
+if ($this->StartResultCache(false, [$cacheDependence])) {
 
 	if (!CModule::IncludeModule("iblock")) {
 		$this->AbortResultCache();
 		ShowError("IBLOCK_MODULE_NOT_INSTALLED");
 		return false;
-	}
-
-	$entitySections = Iblock\Model\Section::compileEntityByIblock((int)$arParams['IBLOCK_ID']);
-	$objectSections = $entitySections::getList([
-		'select' => ['ID', 'NAME', 'IBLOCK_ID', 'DEPTH_LEVEL'],
-		'filter' => [
-			'IBLOCK_ID' => $arParams["IBLOCK_ID"],
-			//'UF_SHOW_OUR_STORE_ON_PAGE' => 1, Кастомное поле раздела
-			"ACTIVE" => "Y"
-		],
-		'order' => ['DATE_CREATE' => 'DESC'],
-	]);
-	while ($arraySections = $objectSections->Fetch()) {
-		if ($lastPartitionId === $arraySections['IBLOCK_SECTION_ID']) {
-			$finalArray[$arraySections['IBLOCK_SECTION_ID']][$arraySections['ID']] = $arraySections;
-		} else {
-			$finalArray[$arraySections['ID']] = $arraySections;
-		}
-		$lastPartitionId = $arraySections['ID'];
 	}
 
 	if (!empty($arParams['SECTION_3_LEVEL'])) {
@@ -48,12 +44,45 @@ if ($this->StartResultCache(false, [])) {
 		$iblockSectionID = $arParams['SECTION_1_LEVEL'];
 	}
 
+	$entitySections = Iblock\Model\Section::compileEntityByIblock((int)$arParams['IBLOCK_ID']);
+	$objectSections = $entitySections::getList([
+		'select' => ['ID', 'NAME', 'IBLOCK_ID', 'DEPTH_LEVEL'],
+		'filter' => [
+			'IBLOCK_ID' => $arParams["IBLOCK_ID"],
+			'ID' => $iblockSectionID,
+			//'UF_SHOW_OUR_STORE_ON_PAGE' => 1, Кастомное поле раздела
+			"ACTIVE" => "Y"
+		],
+		'order' => ['DATE_CREATE' => 'DESC'],
+	]);
+	while ($arraySections = $objectSections->Fetch()) {
+		//if ($lastPartitionId === $arraySections['IBLOCK_SECTION_ID']) {
+		//	$finalArray[$arraySections['IBLOCK_SECTION_ID']][$arraySections['ID']] = $arraySections;
+		//} else {
+
+		//$arraySectionsButtons = CIBlock::GetPanelButtons(
+		//	$arraySections["IBLOCK_ID"],
+		//	$arraySections["ID"],
+		//	0,
+		//	array("SECTION_BUTTONS" => false, "SESSID" => false)
+		//);
+
+		$finalArraySection[$arraySections['ID']] = $arraySections;
+		//$finalArraySection[$arraySections['ID']]["EDIT_LINK"] = $arraySectionsButtons["edit"]["edit_element"]["ACTION_URL"];
+		//$finalArraySection[$arraySections['ID']]["DELETE_LINK"] = $arraySectionsButtons["edit"]["delete_element"]["ACTION_URL"];
+		//}
+		//$lastPartitionId = $arraySections['ID'];
+	}
+
+	$arResult['SECTION_LIST'] = $finalArraySection;
+
 	$arSort = array("SORT" => "ASC", "DATE_ACTIVE_FROM" => "DESC", "ID" => "DESC");
 	$arFilter = array("IBLOCK_ID" => $arParams["IBLOCK_ID"], "SECTION_ID" => $iblockSectionID, "ID" => $arParams['LIST_OF_ELEMENTS'], "ACTIVE" => "Y", "ACTIVE_DATE" => "Y");
-	$arSelect = array("ID", "IBLOCK_ID", "NAME", "DATE_ACTIVE_FROM", "PREVIEW_TEXT", "PREVIEW_PICTURE");
+	$arSelect = array("ID", "IBLOCK_ID", "NAME", "DATE_ACTIVE_FROM", "PREVIEW_TEXT", "PREVIEW_PICTURE", "DETAIL_PAGE_URL", "IBLOCK_SECTION_ID");
 	$arSelect = array_merge($arSelect, $arParams["PROPERTY_LIST"]);
 
 	$rsElement = CIBlockElement::GetList($arSort, $arFilter, false, $arNavParams, $arSelect);
+	$rsElement->NavStart(0);
 
 	if ($arParams["DETAIL_URL"]) {
 		$rsElement->SetUrlTemplates($arParams["DETAIL_URL"]);
@@ -61,7 +90,7 @@ if ($this->StartResultCache(false, [])) {
 
 	while ($obElement = $rsElement->GetNextElement()) {
 		$arElement = $obElement->GetFields();
-
+		$arProps = $obElement->GetProperties();
 		$arButtons = CIBlock::GetPanelButtons(
 			$arElement["IBLOCK_ID"],
 			$arElement["ID"],
@@ -77,7 +106,14 @@ if ($this->StartResultCache(false, [])) {
 		$arResult["ITEMS"][] = $arElement;
 	}
 
-	unset($arElement, $lastPartitionId, $finalArray);
+	$arResult["NAV_RESULT"] = [
+		'NavPageCount' => $rsElement->NavPageCount,
+		'NavPageNomer' => $rsElement->NavPageNomer,
+		'NavNum' => $rsElement->NavNum,
+	];
+
+	$arResult['NAV_STRING'] = $rsElement->GetPageNavStringEx($navComponentObject, "Страницы:");
+	unset($arElement, $lastPartitionId, $finalArraySection);
 
 	$this->SetResultCacheKeys(array(
 		"ID",
