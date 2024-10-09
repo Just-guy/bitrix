@@ -85,7 +85,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
 		];
 		?>
 		<script>
-			var <?= $jsObjectName ?> = new JCCustom(<?= CUtil::PhpToJSObject($jsParams, false, true) ?>);
+			let <?= $jsObjectName ?> = new JCCustom(<?= CUtil::PhpToJSObject($jsParams, false, true) ?>);
 		</script>
 	<? endforeach; ?>
 </div>
