@@ -27,7 +27,7 @@ BX.namespace('BX.JCWebForm');
 
 			this.error = false;
 			fieldValues = this.formFieldValues(this.arrayInputs);
-			this.shoppingCartValidation();
+			//this.shoppingCartValidation();
 			BX.PreventDefault(event);
 			if (this.error == true) return false;
 
@@ -244,36 +244,36 @@ BX.namespace('BX.JCWebForm');
 			};
 		},
 
-		shoppingCartValidation: function () {
-			debugger
-			let answer, basketContainer = document.querySelector('.catalog-basket__products'),
-				message = BX.message('FORM_EMPTY_CART');
-			if (this.basket == false) {
-				basketContainer.classList.add('catalog-basket__empty');
-				answer = new BX.PopupWindow(
-					'form-result',
-					null,
-					{
-						content: '<div class="form-result__shell form-result__error">' +
-							'<div class="form-result__information-block">' +
-							'<h2 class="form-result__title">' + message + '</h2>' +
-							'</div>' +
-							'</div>',
-						zIndex: 0,
-						autoHide: true,
-						offsetTop: 1,
-						offsetLeft: 0,
-						lightShadow: true,
-						closeIcon: true,
-						closeByEsc: true,
-						overlay: { backgroundColor: 'black', opacity: '80' },
-					}
-				);
-				answer.show();
-				this.error = true;
-			} else {
-				if (basketContainer.classList.contains('catalog-basket__empty')) basketContainer.classList.remove('catalog-basket__empty');
-			}
-		}
+		//shoppingCartValidation: function () {
+		//	debugger
+		//	let answer, basketContainer = document.querySelector('.catalog-basket__products'),
+		//		message = BX.message('FORM_EMPTY_CART');
+		//	if (this.basket == false) {
+		//		basketContainer.classList.add('catalog-basket__empty');
+		//		answer = new BX.PopupWindow(
+		//			'form-result',
+		//			null,
+		//			{
+		//				content: '<div class="form-result__shell form-result__error">' +
+		//					'<div class="form-result__information-block">' +
+		//					'<h2 class="form-result__title">' + message + '</h2>' +
+		//					'</div>' +
+		//					'</div>',
+		//				zIndex: 0,
+		//				autoHide: true,
+		//				offsetTop: 1,
+		//				offsetLeft: 0,
+		//				lightShadow: true,
+		//				closeIcon: true,
+		//				closeByEsc: true,
+		//				overlay: { backgroundColor: 'black', opacity: '80' },
+		//			}
+		//		);
+		//		answer.show();
+		//		this.error = true;
+		//	} else {
+		//		if (basketContainer.classList.contains('catalog-basket__empty')) basketContainer.classList.remove('catalog-basket__empty');
+		//	}
+		//}
 	}
 })();
