@@ -17,9 +17,5 @@ $arTemplateParameters = array(
 		"TYPE" => "STRING",
 		"DEFAULT" => "",
 	),
-	"LINK_TO_PRIVACY_POLICY" => array(
-		"NAME" => GetMessage("U_LINK_TO_PRIVACY_POLICY"),
-		"TYPE" => "STRING",
-		"DEFAULT" => "",
-	)
+	"USER_CONSENT" => array()
 );

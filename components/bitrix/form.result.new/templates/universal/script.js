@@ -5,7 +5,6 @@ BX.namespace('BX.JCWebForm');
 
 	BX.JCWebForm = {
 		init: function (parameters) {
-			//debugger
 			this.result = parameters.result;
 			this.form = document.querySelector('[name=' + this.result.FORM_NAME);
 			this.formCallButton = document.querySelector('.' + this.result.CLASS_FORM_CALL_BUTTON);
@@ -48,7 +47,6 @@ BX.namespace('BX.JCWebForm');
 
 			promise
 				.then(function (response) {
-					//debugger
 					let parseHtmlShell, parseHtmlElement, oPopup;
 					parseHtmlShell = $.parseHTML(response);
 
@@ -78,11 +76,12 @@ BX.namespace('BX.JCWebForm');
 		},
 
 		sendForm: function (event) {
-			let fieldValues;
+			let fieldValues, agreementVerified;
 			this.error = false;
 			fieldValues = this.formFieldValues(this.arrayInputs);
+			agreementVerified = this.resultConsentProcessingPersonalData();
 			BX.PreventDefault(event);
-			if (this.error == true) return false;
+			if (this.error == true && agreementVerified == false) return false;
 
 			BX.ajax.submitAjax(this.form, {
 				url: this.pathToAjax,
@@ -94,7 +93,6 @@ BX.namespace('BX.JCWebForm');
 					arrayInputs: this.arrayInputs
 				},
 				onsuccess: function (data, response) {
-					debugger
 
 					this.clearMessage();
 					this.refreshCaptcha(data.CAPTCHA_CODE);
@@ -147,7 +145,6 @@ BX.namespace('BX.JCWebForm');
 			let message, validation, type, pattern;
 
 			type = field.dataset.validation;
-			debugger
 			if (type == 'telephone' && field.value.length > 0) {
 				message = 'FORM_REQUIRED_TELEPHONE';
 				pattern = new RegExp("^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$", "gmi");
@@ -178,7 +175,7 @@ BX.namespace('BX.JCWebForm');
 
 			if (message.length == 0) message = 'FORM_REQUIRED_FIELDS';
 
-			element.parentElement.prepend(BX.create('SPAN', { props: { className: 'form-error' }, text: BX.message(message) }));
+			element.before(BX.create('SPAN', { props: { className: 'form-error' }, text: BX.message(message) }));
 			element.classList.add('form-error-field');
 		},
 
@@ -245,9 +242,15 @@ BX.namespace('BX.JCWebForm');
 			if(message != null) message.remove();
 		},
 
-		refreshCaptcha: function(captchaCode) {
+		refreshCaptcha: function (captchaCode) {
 			this.captchaCodeImg.src = "/bitrix/tools/captcha.php?captcha_sid=" + captchaCode;
 			this.captchaCodeInput.value = captchaCode;
+		},
+
+		resultConsentProcessingPersonalData: function () {
+			let input;
+			input = document.querySelector('.universal-form__agreement input');
+			return input.checked;
 		}
 	}
 })();
