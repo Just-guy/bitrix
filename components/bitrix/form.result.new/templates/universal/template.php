@@ -42,12 +42,32 @@ $jsParams = []; ?>
 							<? endif; ?>
 
 							<? switch ($type) {
+								case 'text': ?>
+									<input type="<?= $type ?>" name="<?= $name ?>" placeholder="<?= $valueQuestion["CAPTION"] ?><? if ($valueQuestion["REQUIRED"] == 'Y') : ?>*<? endif; ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> value="">
+									<? break;
+
+								case 'radio':
+									foreach ($valueQuestion["STRUCTURE"] as $keyRadio => $valueRadio) { ?>
+										<div class="order-material__item-radio-button">
+											<input type="radio" id="<?= $valueRadio["ID"] ?>" name="<?= $keyQuestion ?>"<?= ($keyRadio == 0 ? ' checked' : '') ?>>
+											<label for="<?= $valueRadio["ID"] ?>" class="order-material__item-radio-label">
+												<span></span>
+												<div class="order-material__item-radio-text"><?= $valueRadio["MESSAGE"] ?></div>
+											</label>
+										</div>
+									<? } ?>
+								<? break;
+
+								case 'hidden': ?>
+									<?= $valueQuestion["HTML_CODE"] ?>
+								<? break;
+
 								case 'textarea': ?>
-									<textarea name="<?= $name ?>" placeholder="<?= $valueQuestion["CAPTION"] ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> style="resize: vertical;"></textarea>
+									<textarea name="<?= $name ?>" placeholder="<?= $valueQuestion["CAPTION"] ?><? if ($valueQuestion["REQUIRED"] == 'Y') : ?>*<? endif; ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> style="resize: vertical;"></textarea>
 								<? break;
 
 								default: ?>
-									<input type="<?= $type ?>" name="<?= $name ?>" placeholder="<?= $valueQuestion["CAPTION"] ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> value="">
+									<?= $valueQuestion["HTML_CODE"] ?>
 							<? break;
 							} ?>
 						</div>
