@@ -120,7 +120,8 @@ $jsParams = []; ?>
 
 $jsParams += [
 	'FORM_NAME' => $arResult["arForm"]["SID"],
-	'PATH_TO_AJAX' => $templateFolder . ($arParams["CALLING_VIA_AJAX"] == "Y" ? '/ajax-component.php' : '/ajax-result.php'),
+	'PATH_TO_AJAX_COMPONENT' => $templateFolder . '/ajax-component.php',
+	'PATH_TO_AJAX_RESULT' => $templateFolder . '/ajax-result.php',
 	'USE_CAPTCHA' => $arResult["isUseCaptcha"],
 	'CALLING_VIA_AJAX' => $arParams["CALLING_VIA_AJAX"],
 	'FORM_ID' => $formId,

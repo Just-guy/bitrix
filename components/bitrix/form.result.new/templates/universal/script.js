@@ -10,7 +10,8 @@ BX.namespace('BX.JCWebForm');
 			this.formCallButton = document.querySelector('.' + this.result.CLASS_FORM_CALL_BUTTON);
 			this.captchaCodeImg = document.querySelector('.universal-form__captcha-code');
 			this.captchaCodeInput = document.querySelector('[name="captcha_sid"]');
-			this.pathToAjax = this.result.PATH_TO_AJAX;
+			this.pathToAjaxComponent = this.result.PATH_TO_AJAX_COMPONENT;
+			this.pathToAjaxResult = this.result.PATH_TO_AJAX_RESULT;
 			this.lastResult = null;
 
 			if (this.form != null) {
@@ -35,7 +36,7 @@ BX.namespace('BX.JCWebForm');
 
 		callForm: function () {
 			let promise = BX.ajax.promise({
-				url: this.pathToAjax,
+				url: this.pathToAjaxComponent,
 				method: 'POST',
 				dataType: 'html',
 				data: {
@@ -84,7 +85,7 @@ BX.namespace('BX.JCWebForm');
 			if (this.error == true && agreementVerified == false) return false;
 
 			BX.ajax.submitAjax(this.form, {
-				url: this.pathToAjax,
+				url: this.pathToAjaxResult,
 				method: 'POST',
 				dataType: 'json',
 				data: {
