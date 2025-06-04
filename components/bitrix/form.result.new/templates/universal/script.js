@@ -51,7 +51,7 @@ BX.namespace('BX.JCWebForm');
 					let parseHtmlShell, parseHtmlElement, oPopup;
 					parseHtmlShell = $.parseHTML(response);
 
-					oPopup = new BX.PopupWindow("my_answer", null, {
+					oPopup = new BX.PopupWindow('form-universal-' + Math.random().toString(16).slice(2), null, {
 						content: parseHtmlShell[1],
 						autoHide: true,
 						offsetTop: 1,
@@ -59,6 +59,7 @@ BX.namespace('BX.JCWebForm');
 						lightShadow: true,
 						closeIcon: true,
 						closeByEsc: true,
+						className: 'popup-form-universal',
 						events: {
 							onAfterPopupShow: function () {
 								oPopup.adjustPosition();
