@@ -41,16 +41,30 @@ $jsParams = []; ?>
 								<span class="form-error"><?= htmlspecialcharsbx($arResult["FORM_ERRORS"][$keyQuestion]) ?></span>
 							<? endif; ?>
 
+							<?
+							$jsParams['INPUTS'][$keyQuestion]['DATA_NAME'] = $name;
+							$jsParams['INPUTS'][$keyQuestion]['CAPTION'] = $valueQuestion["CAPTION"];
+							$jsParams['INPUTS'][$keyQuestion]['ID'] = $valueQuestion["STRUCTURE"][0]["ID"];
+							$jsParams['INPUTS'][$keyQuestion]['REQUIRED'] = $valueQuestion["REQUIRED"];
+							$jsParams['INPUTS'][$keyQuestion]['TYPE'] = $type;
+							?>
+
 							<? switch ($type) {
 								case 'text': ?>
 									<input type="<?= $type ?>" name="<?= $name ?>" placeholder="<?= $valueQuestion["CAPTION"] ?><? if ($valueQuestion["REQUIRED"] == 'Y') : ?>*<? endif; ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> value="">
 									<? break;
 
 								case 'radio':
-									foreach ($valueQuestion["STRUCTURE"] as $keyRadio => $valueRadio) { ?>
+									$jsParams['INPUTS'][$keyQuestion]['ID'] = [];
+									$jsParams['INPUTS'][$keyQuestion]['DATA_NAME'] = [];
+									foreach ($valueQuestion["STRUCTURE"] as $keyRadio => $valueRadio) {
+										$name = "form_" . $type . "_" . $keyQuestion;
+										$jsParams['INPUTS'][$keyQuestion]['ID'][] = $valueRadio["ID"];
+										$jsParams['INPUTS'][$keyQuestion]['DATA_NAME'] = $name;
+									?>
 										<div class="order-material__item-radio-button">
-											<input type="radio" id="<?= $valueRadio["ID"] ?>" name="<?= $keyQuestion ?>"<?= ($keyRadio == 0 ? ' checked' : '') ?>>
-											<label for="<?= $valueRadio["ID"] ?>" class="order-material__item-radio-label">
+											<input type="radio" id="<?= $valueRadio['ID'] ?>" name="<?= $name ?>" value="<?= $valueRadio['ID'] ?>" <?= ($keyRadio == 0 ? ' checked' : '') ?>>
+											<label for="<?= $valueRadio['ID'] ?>" class="order-material__item-radio-label">
 												<span></span>
 												<div class="order-material__item-radio-text"><?= $valueRadio["MESSAGE"] ?></div>
 											</label>
@@ -71,14 +85,6 @@ $jsParams = []; ?>
 							<? break;
 							} ?>
 						</div>
-
-						<?
-						$jsParams['INPUTS'][$keyQuestion]['DATA_NAME'] = $name;
-						$jsParams['INPUTS'][$keyQuestion]['CAPTION'] = $valueQuestion["CAPTION"];
-						$jsParams['INPUTS'][$keyQuestion]['ID'] = $valueQuestion["STRUCTURE"][0]["ID"];
-						$jsParams['INPUTS'][$keyQuestion]['REQUIRED'] = $valueQuestion["REQUIRED"];
-						$jsParams['INPUTS'][$keyQuestion]['TYPE'] = $type;
-						?>
 					<? endforeach; ?>
 
 					<? if ($arResult["isUseCaptcha"] == "Y"): ?>

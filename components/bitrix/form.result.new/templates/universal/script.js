@@ -132,27 +132,66 @@ BX.namespace('BX.JCWebForm');
 			let field, resultValue = [];
 
 			for (var index in arrayField) {
-				field = document.querySelector("[name='" + arrayField[index].DATA_NAME
-					+ "']");
+				switch (arrayField[index].TYPE) {
+					case 'hidden':
+						field = this.hiddenFieldValue(arrayField[index], index);
+						break;
 
-				if (arrayField[index].TYPE != 'hidden') this.fieldValidation(field);
+					case 'radio':
+						field = this.radioButtonFieldValue(arrayField[index]);
+						break;
 
-				resultValue[arrayField[index].DATA_NAME] = field.value;
+					default:
+						field = this.textFieldValue(arrayField[index]);
+						break;
+				}
+
+				if ((arrayField[index].TYPE != 'hidden' || arrayField[index].TYPE != 'radio') && arrayField[index].REQUIRED == "Y") this.fieldValidation(field);
+
+				resultValue[field.name] = field.value;
+				field = '';
 			};
 
 			return resultValue;
+		},
+
+		textFieldValue: function (fieldData) {
+			let field = this.form.querySelector("[name='" + fieldData.DATA_NAME + "']");
+			return field;
+		},
+
+		radioButtonFieldValue: function (fieldData) {
+			let field, checkedButton;
+debugger
+			for (var index in fieldData.ID) {
+				field = this.form.querySelector("[id='" + fieldData.ID[index] + "'][name='" + fieldData.DATA_NAME + "']")
+
+				if (field.checked) checkedButton = field;
+			}
+
+			return (checkedButton instanceof Element ? checkedButton : '');
+		},
+
+		hiddenFieldValue: function (fieldData, code) {
+			let field = this.form.querySelector("[name='" + fieldData.DATA_NAME + "']");
+
+			if (code == 'PRODUCT') {
+				field.value = this.result.DATA.NAME + ' - ' + this.result.DATA.PRICE + ' - ' + this.form.querySelector('.product-card-count__num').value + 'шт' + "\r\n" + "Ссылка на товар: " + window.location.protocol + '//' + window.location.hostname + this.result.DATA.SRC_TO_PRODUCT;
+			}
+
+			return field;
 		},
 
 		fieldValidation: function (field) {
 			let message, validation, type, pattern;
 
 			type = field.dataset.validation;
-			if (type == 'telephone' && field.value.length > 0) {
+			if (type == 'telephone') {
 				message = 'FORM_REQUIRED_TELEPHONE';
 				pattern = new RegExp("^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$", "gmi");
 			}
 
-			if (type == 'email' && field.value.length > 0) {
+			if (type == 'email') {
 				message = 'FORM_REQUIRED_EMAIL';
 				pattern = new RegExp("^[A-Z0-9._%+-]+@[A-Z0-9-]+\.[A-Z]{2,4}$", "gmi");
 			}
@@ -220,6 +259,8 @@ BX.namespace('BX.JCWebForm');
 		clearForm: function (arrayField) {
 			let field;
 			for (var index in arrayField) {
+				if (arrayField[index].TYPE == 'hidden' || arrayField[index].TYPE == 'radio') continue;
+
 				field = document.querySelector("[name='" + arrayField[index].DATA_NAME + "']");
 				field.value = '';
 			};
