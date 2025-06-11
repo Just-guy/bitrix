@@ -23,5 +23,35 @@ $arTemplateParameters = array(
 		"TYPE" => "STRING",
 		"DEFAULT" => "",
 	),
+	"FORMAT_SUCCESSFUL_RESULT" => array(
+		"NAME" => GetMessage("U_FORMAT_SUCCESSFUL_RESULT"),
+		"TYPE" => "CHECKBOX",
+		"DEFAULT" => "N",
+		"REFRESH" => "Y",
+	),
 	"USER_CONSENT" => array()
 );
+
+if($arCurrentValues["FORMAT_SUCCESSFUL_RESULT"] == "Y") {
+	$arTemplateParameters["TITLE_SUCCESSFUL_RESULT"] = array(
+		"NAME" => GetMessage("U_TITLE_SUCCESSFUL_RESULT"),
+		"TYPE" => "STRING",
+		"DEFAULT" => "",
+	);
+	$arTemplateParameters["DESCRIPTION_SUCCESSFUL_RESULT"] = array(
+		"NAME" => GetMessage("U_DESCRIPTION_SUCCESSFUL_RESULT"),
+		"TYPE" => "STRING",
+		"DEFAULT" => "",
+	);
+	$arTemplateParameters["TITLE_FAILURE_RESULT"] = array(
+		"NAME" => GetMessage("U_TITLE_FAILUREL_RESULT"),
+		"TYPE" => "STRING",
+		"DEFAULT" => "",
+	);
+	$arTemplateParameters["DESCRIPTION_FAILURE_RESULT"] = array(
+		"NAME" => GetMessage("U_DESCRIPTION_FAILURE_RESULT"),
+		"TYPE" => "STRING",
+		"DEFAULT" => "",
+	);
+}
+

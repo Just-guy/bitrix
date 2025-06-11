@@ -133,6 +133,7 @@ $jsParams += [
 	'PATH_TO_AJAX_RESULT' => $templateFolder . '/ajax-result.php',
 	'USE_CAPTCHA' => $arResult["isUseCaptcha"],
 	'OPEN_FORM_IN_MODAL_WINDOW' => $arParams["OPEN_FORM_IN_MODAL_WINDOW"],
+	'FORMAT_SUCCESSFUL_RESULT' => $arParams["FORMAT_SUCCESSFUL_RESULT"],
 	'CALLING_VIA_AJAX' => $arParams["CALLING_VIA_AJAX"],
 	'FORM_ID' => $formId,
 	'CLASS_FORM_CALL_BUTTON' => $formCallButton,
@@ -143,6 +144,12 @@ $jsParams += [
 	"SUBMIT_EVENT_NAME" => $arParams["COMPONENT_TEMPLATE"],
 	"USER_CONSENT" => $arParams["USER_CONSENT"],
 ];
+
+if (!empty($arParams["TITLE_SUCCESSFUL_RESULT"])) $jsParams['TITLE_SUCCESSFUL_RESULT'] = $arParams["TITLE_SUCCESSFUL_RESULT"];
+if (!empty($arParams["DESCRIPTION_SUCCESSFUL_RESULT"])) $jsParams['DESCRIPTION_SUCCESSFUL_RESULT'] = $arParams["DESCRIPTION_SUCCESSFUL_RESULT"];
+if (!empty($arParams["TITLE_FAILURE_RESULT"])) $jsParams['TITLE_FAILURE_RESULT'] = $arParams["TITLE_FAILURE_RESULT"];
+if (!empty($arParams["DESCRIPTION_FAILURE_RESULT"])) $jsParams['DESCRIPTION_FAILURE_RESULT'] = $arParams["DESCRIPTION_FAILURE_RESULT"];
+
 $messages = Loc::loadLanguageFile(__FILE__);
 ?>
 <script>
