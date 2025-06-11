@@ -8,12 +8,12 @@ CJSCore::Init(['popup']);
 use Bitrix\Main\Localization\Loc;
 
 $jsObjectName = 'ob' . preg_replace("/[^a-zA-Z0-9_]/", "x", $this->randString());
-$formId = 'universal-form-' . preg_replace("/[^a-zA-Z0-9_]/", "x", $this->randString());
-$formCallButton = 'universal-open-form__' . preg_replace("/[^a-zA-Z0-9_]/", "x", $this->randString());
+$formCallButton = 'order-open-form__' . uniqid();
 $jsParams = []; ?>
 <? if ($arParams["CALLING_VIA_AJAX"] == "Y"): ?>
 	<a href="javascript:void(0)" class="<?= $formCallButton ?>"><?= $arParams['NAME_FORM_CALL_BUTTON'] ?></a>
 <? else: ?>
+	<? $formId = 'found-it-cheaper-' . uniqid(); ?>
 	<div class="universal-form" id="<?= $formId ?>">
 		<div class="universal-form__shell">
 			<? if (!empty($arParams['TITLE']) || !empty($arResult["arForm"]["NAME"])):  ?>
