@@ -7,11 +7,13 @@ BX.namespace('BX.JCWebForm');
 		init: function (parameters) {
 			this.result = parameters.result;
 			if (this.result.FORM_ID.length != '') this.form = document.querySelector('#' + this.result.FORM_ID + ' form');
+			this.openFormInModalWindow = this.result.OPEN_FORM_IN_MODAL_WINDOW;
 			this.formCallButton = document.querySelector('.' + this.result.CLASS_FORM_CALL_BUTTON);
 			this.captchaCodeImg = document.querySelector('.universal-form__captcha-code');
 			this.captchaCodeInput = document.querySelector('[name="captcha_sid"]');
 			this.pathToAjaxComponent = this.result.PATH_TO_AJAX_COMPONENT;
 			this.pathToAjaxResult = this.result.PATH_TO_AJAX_RESULT;
+			this.callingForm = this.result.CALLING_FORM;
 			this.submitEventName = this.result.SUBMIT_EVENT_NAME;
 			this.agreementVerified = (this.result.USER_CONSENT == 'Y' ? true : false);
 			this.lastResult = null;
@@ -33,7 +35,9 @@ BX.namespace('BX.JCWebForm');
 			}
 
 			if (this.phoneField != null) this.setMaskForPhone(this.phoneField);
-			if (this.formCallButton != null) BX.bind(this.formCallButton, 'click', BX.proxy(this.callForm, this));
+
+			if (this.formCallButton != null && this.openFormInModalWindow == "Y" && this.callingForm.length == '') BX.bind(this.formCallButton, 'click', BX.proxy(this.callForm, this));
+
 			if (this.sendFormButton != null) {
 				BX.bind(this.form, 'submit', BX.proxy(this.sendForm, this));
 
@@ -52,6 +56,7 @@ BX.namespace('BX.JCWebForm');
 					params: this.result.PARAMETERS,
 					componentName: this.result.COMPONENT_NAME,
 					templateName: this.result.TEMPLATE_NAME,
+					calling_form: true,
 				}
 			});
 

@@ -7,6 +7,8 @@ CJSCore::Init(['popup']);
 
 use Bitrix\Main\Localization\Loc;
 
+$request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
+$callingForm = $request->getPost('calling_form');
 $jsObjectName = 'ob' . uniqid();
 $formCallButton = 'order-open-form__' . uniqid();
 $jsParams = []; ?>
@@ -130,12 +132,14 @@ $jsParams += [
 	'PATH_TO_AJAX_COMPONENT' => $templateFolder . '/ajax-component.php',
 	'PATH_TO_AJAX_RESULT' => $templateFolder . '/ajax-result.php',
 	'USE_CAPTCHA' => $arResult["isUseCaptcha"],
+	'OPEN_FORM_IN_MODAL_WINDOW' => $arParams["OPEN_FORM_IN_MODAL_WINDOW"],
 	'CALLING_VIA_AJAX' => $arParams["CALLING_VIA_AJAX"],
 	'FORM_ID' => $formId,
 	'CLASS_FORM_CALL_BUTTON' => $formCallButton,
 	'PARAMETERS' => \Bitrix\Main\Component\ParameterSigner::signParameters($component->__name, $arParamsCleared),
 	"COMPONENT_NAME" => $component->__name,
-	"TEMPLATE_NAME" => $templateName
+	"TEMPLATE_NAME" => $templateName,
+	"CALLING_FORM" => $callingForm,
 	"SUBMIT_EVENT_NAME" => $arParams["COMPONENT_TEMPLATE"],
 	"USER_CONSENT" => $arParams["USER_CONSENT"],
 ];
