@@ -7,7 +7,7 @@ CJSCore::Init(['popup']);
 
 use Bitrix\Main\Localization\Loc;
 
-$jsObjectName = 'ob' . preg_replace("/[^a-zA-Z0-9_]/", "x", $this->randString());
+$jsObjectName = 'ob' . uniqid();
 $formCallButton = 'order-open-form__' . uniqid();
 $jsParams = []; ?>
 <? if ($arParams["CALLING_VIA_AJAX"] == "Y"): ?>
