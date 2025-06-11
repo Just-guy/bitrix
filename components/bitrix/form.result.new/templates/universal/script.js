@@ -22,6 +22,7 @@ BX.namespace('BX.JCWebForm');
 				this.error = false;
 				this.arrayInputs = this.result.INPUTS;
 				this.eventActivation();
+				this.fieldValidationEvent(this.arrayInputs);
 				this.clearForm(this.arrayInputs);
 			}
 
