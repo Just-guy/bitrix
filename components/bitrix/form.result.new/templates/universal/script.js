@@ -34,7 +34,6 @@ BX.namespace('BX.JCWebForm');
 
 			if (this.phoneField != null) this.setMaskForPhone(this.phoneField);
 			if (this.formCallButton != null) BX.bind(this.formCallButton, 'click', BX.proxy(this.callForm, this));
-			if (this.sendFormButton != null) BX.bind(this.form, 'submit', BX.proxy(this.sendForm, this));
 			if (this.sendFormButton != null) {
 				BX.bind(this.form, 'submit', BX.proxy(this.sendForm, this));
 
@@ -172,7 +171,6 @@ BX.namespace('BX.JCWebForm');
 
 		radioButtonFieldValue: function (fieldData) {
 			let field, checkedButton;
-debugger
 			for (var index in fieldData.ID) {
 				field = this.form.querySelector("[id='" + fieldData.ID[index] + "'][name='" + fieldData.DATA_NAME + "']")
 
