@@ -12,6 +12,8 @@ BX.namespace('BX.JCWebForm');
 			this.captchaCodeInput = document.querySelector('[name="captcha_sid"]');
 			this.pathToAjaxComponent = this.result.PATH_TO_AJAX_COMPONENT;
 			this.pathToAjaxResult = this.result.PATH_TO_AJAX_RESULT;
+			this.submitEventName = this.result.SUBMIT_EVENT_NAME;
+			this.agreementVerified = (this.result.USER_CONSENT == 'Y' ? true : false);
 			this.lastResult = null;
 
 			if (this.form != null) {
@@ -33,6 +35,13 @@ BX.namespace('BX.JCWebForm');
 			if (this.phoneField != null) this.setMaskForPhone(this.phoneField);
 			if (this.formCallButton != null) BX.bind(this.formCallButton, 'click', BX.proxy(this.callForm, this));
 			if (this.sendFormButton != null) BX.bind(this.form, 'submit', BX.proxy(this.sendForm, this));
+			if (this.sendFormButton != null) {
+				BX.bind(this.form, 'submit', BX.proxy(this.sendForm, this));
+
+				BX.bind(this.sendFormButton, 'click', function () {
+					BX.onCustomEvent(this.submitEventName, []);
+				});
+			}
 		},
 
 		callForm: function () {
@@ -79,12 +88,12 @@ BX.namespace('BX.JCWebForm');
 		},
 
 		sendForm: function (event) {
-			let fieldValues, agreementVerified;
+			let fieldValues;
 			this.error = false;
 			fieldValues = this.formFieldValues(this.arrayInputs);
-			agreementVerified = this.resultConsentProcessingPersonalData();
+
 			BX.PreventDefault(event);
-			if (this.error == true && agreementVerified == false) return false;
+			if (this.error == true && this.agreementVerified == false) return false;
 
 			BX.ajax.submitAjax(this.form, {
 				url: this.pathToAjaxResult,
@@ -232,7 +241,28 @@ debugger
 		},
 
 		eventActivation: function () {
-			this.fieldValidationEvent(this.arrayInputs);
+			if (BX.UserConsent) {
+				let control = BX.UserConsent.load(this.form);
+				if (!control) {
+					return;
+				}
+
+				BX.addCustomEvent(
+					control,
+					BX.UserConsent.events.save,
+					BX.proxy(function (data) {
+						this.agreementVerified = false;
+					}, this)
+				);
+
+				BX.addCustomEvent(
+					control,
+					BX.UserConsent.events.refused,
+					BX.proxy(function (data) {
+						this.agreementVerified = true;
+					}, this)
+				);
+			}
 		},
 
 		// Вешаем событие для проверки пустоты input'ов

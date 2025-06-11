@@ -111,6 +111,7 @@ $jsParams = []; ?>
 								"IS_CHECKED" => $arParams["USER_CONSENT_IS_CHECKED"],
 								"AUTO_SAVE" => "Y",
 								"IS_LOADED" => $arParams["USER_CONSENT_IS_LOADED"],
+								'SUBMIT_EVENT_NAME' => $arParams["COMPONENT_TEMPLATE"]
 							)
 						); ?>
 					</div>
@@ -135,6 +136,8 @@ $jsParams += [
 	'PARAMETERS' => \Bitrix\Main\Component\ParameterSigner::signParameters($component->__name, $arParamsCleared),
 	"COMPONENT_NAME" => $component->__name,
 	"TEMPLATE_NAME" => $templateName
+	"SUBMIT_EVENT_NAME" => $arParams["COMPONENT_TEMPLATE"],
+	"USER_CONSENT" => $arParams["USER_CONSENT"],
 ];
 $messages = Loc::loadLanguageFile(__FILE__);
 ?>
