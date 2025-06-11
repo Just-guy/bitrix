@@ -8,7 +8,6 @@ $templateName = $request->getPost('templateName');
 
 if ($params && $componentName) {
 	$arParams = \Bitrix\Main\Component\ParameterSigner::unsignParameters($componentName, $params);
-	$arParams["CALLING_VIA_AJAX"] = "N";
 	$templateName = ($templateName ?: $arParams["COMPONENT_TEMPLATE"]);
 
 	$APPLICATION->IncludeComponent(

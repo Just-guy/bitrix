@@ -57,6 +57,7 @@ BX.namespace('BX.JCWebForm');
 					componentName: this.result.COMPONENT_NAME,
 					templateName: this.result.TEMPLATE_NAME,
 					calling_form: true,
+					useCaptcha: this.useCaptcha
 				}
 			});
 
