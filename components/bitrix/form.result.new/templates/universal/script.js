@@ -6,7 +6,7 @@ BX.namespace('BX.JCWebForm');
 	BX.JCWebForm = {
 		init: function (parameters) {
 			this.result = parameters.result;
-			this.form = document.querySelector('[name=' + this.result.FORM_NAME);
+			if (this.result.FORM_ID.length != '') this.form = document.querySelector('#' + this.result.FORM_ID + ' form');
 			this.formCallButton = document.querySelector('.' + this.result.CLASS_FORM_CALL_BUTTON);
 			this.captchaCodeImg = document.querySelector('.universal-form__captcha-code');
 			this.captchaCodeInput = document.querySelector('[name="captcha_sid"]');
