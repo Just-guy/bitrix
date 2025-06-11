@@ -88,7 +88,6 @@ BX.namespace('BX.JCWebForm');
 					oPopup.show();
 				}.bind(this))
 				.catch(function () {
-					//lazyPortionAjaxCall.ajaxOnAir = false; // (?)
 				});
 		},
 
