@@ -35,6 +35,10 @@ $jsParams = []; ?>
 						<? $type = $valueQuestion["STRUCTURE"][0]["FIELD_TYPE"];
 						$name = "form_" . $type . "_" . $valueQuestion["STRUCTURE"][0]["ID"]; ?>
 						<div class="universal-form__field-<?= $type ?> universal-form__field">
+							<p class="universal-form__text-name">
+								<?= $valueQuestion["CAPTION"] ?>
+								<? if ($valueQuestion["REQUIRED"] == 'Y') : ?><span class="universal-form__required">*</span> <? endif; ?>
+							</p>
 							<? if (isset($arResult["FORM_ERRORS"][$keyQuestion])): ?>
 								<span class="form-error"><?= htmlspecialcharsbx($arResult["FORM_ERRORS"][$keyQuestion]) ?></span>
 							<? endif; ?>
@@ -49,26 +53,27 @@ $jsParams = []; ?>
 
 							<? switch ($type) {
 								case 'text': ?>
-									<span class="universal-form__name"><?= $valueQuestion["CAPTION"] ?><? if ($valueQuestion["REQUIRED"] == 'Y') : ?>*<? endif; ?></span>
-									<input type="<?= $type ?>" name="<?= $name ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> value="">
+									<input type="<?= $type ?>" name="<?= $name ?>" placeholder="<?= $valueQuestion["CAPTION"] ?><? if ($valueQuestion["REQUIRED"] == 'Y') : ?>*<? endif; ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> value="">
 									<? break;
 
 								case 'radio':
 									$jsParams['INPUTS'][$keyQuestion]['ID'] = [];
-									$jsParams['INPUTS'][$keyQuestion]['DATA_NAME'] = [];
-									foreach ($valueQuestion["STRUCTURE"] as $keyRadio => $valueRadio) {
-										$name = "form_" . $type . "_" . $keyQuestion;
-										$jsParams['INPUTS'][$keyQuestion]['ID'][] = $valueRadio["ID"];
-										$jsParams['INPUTS'][$keyQuestion]['DATA_NAME'] = $name;
-									?>
-										<div class="order-material__item-radio-button">
-											<input type="radio" id="<?= $valueRadio['ID'] ?>" name="<?= $name ?>" value="<?= $valueRadio['ID'] ?>" <?= ($keyRadio == 0 ? ' checked' : '') ?>>
-											<label for="<?= $valueRadio['ID'] ?>" class="order-material__item-radio-label">
-												<span></span>
-												<div class="order-material__item-radio-text"><?= $valueRadio["MESSAGE"] ?></div>
-											</label>
-										</div>
-									<? } ?>
+									$jsParams['INPUTS'][$keyQuestion]['DATA_NAME'] = []; ?>
+									<div class="order-material__item-shell">
+										<? foreach ($valueQuestion["STRUCTURE"] as $keyRadio => $valueRadio) {
+											$name = "form_" . $type . "_" . $keyQuestion;
+											$jsParams['INPUTS'][$keyQuestion]['ID'][] = $valueRadio["ID"];
+											$jsParams['INPUTS'][$keyQuestion]['DATA_NAME'] = $name;
+										?>
+											<div class="order-material__item-radio-button">
+												<input type="radio" id="<?= $valueRadio['ID'] ?>" name="<?= $name ?>" value="<?= $valueRadio['ID'] ?>" <?= ($keyRadio == 0 ? ' checked' : '') ?>>
+												<label for="<?= $valueRadio['ID'] ?>" class="order-material__item-radio-label">
+													<span></span>
+													<div class="order-material__item-radio-text"><?= $valueRadio["MESSAGE"] ?></div>
+												</label>
+											</div>
+										<? } ?>
+									</div>
 								<? break;
 
 								case 'hidden': ?>
