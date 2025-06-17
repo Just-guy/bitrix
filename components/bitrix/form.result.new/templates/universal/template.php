@@ -34,7 +34,7 @@ $jsParams = []; ?>
 					<? foreach ($arResult["QUESTIONS"] as $keyQuestion => $valueQuestion) : ?>
 						<? $type = $valueQuestion["STRUCTURE"][0]["FIELD_TYPE"];
 						$name = "form_" . $type . "_" . $valueQuestion["STRUCTURE"][0]["ID"]; ?>
-						<div class="universal-form__field-<?= $type ?> universal-form__name-field<?= $class ?>">
+						<div class="universal-form__field-<?= $type ?> universal-form__field">
 							<? if (isset($arResult["FORM_ERRORS"][$keyQuestion])): ?>
 								<span class="form-error"><?= htmlspecialcharsbx($arResult["FORM_ERRORS"][$keyQuestion]) ?></span>
 							<? endif; ?>

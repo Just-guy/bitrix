@@ -95,8 +95,8 @@
 
 .universal-form__field-radio {
 	display: flex;
-	gap: 32px;
 	margin-bottom: 7px;
+	flex-direction: column;
 }
 
 .universal-form__item-radio-button input {
@@ -130,12 +130,12 @@
 	flex-shrink: 0;
 }
 
-.universal-form__name-field,
+.universal-form__field,
 .universal-form__field-captcha {
 	position: relative;
 }
 
-.universal-form__name-field>input,
+.universal-form__field>input,
 .universal-form__field-captcha>input,
 .universal-form__field-textarea>textarea {
 	width: 100%;
@@ -159,7 +159,7 @@
 	max-height: 150px;
 }
 
-.universal-form__name-field>.form-error-field {
+.universal-form__field>.form-error-field {
 	border-color: #DA0000;
 }
 
@@ -173,7 +173,7 @@
 	color: #000000;
 }
 
-.universal-form__name-field.universal-form__field-not-empty>input {
+.universal-form__field.universal-form__field-not-empty>input {
 	color: #000;
 	border-color: #000;
 	margin-top: 28px;
@@ -196,7 +196,7 @@
 	padding-left: 0;
 }
 
-.universal-form__name-field>.form-error {
+.universal-form__field>.form-error {
 	color: #DA0000;
 	font-size: 13px;
 	line-height: 20px;
@@ -219,7 +219,7 @@
 	cursor: pointer;
 }
 
-.universal-form__name-field>.universal-form__text-name,
+.universal-form__field>.universal-form__text-name,
 .universal-form__field-captcha>.universal-form__text-name {
 	margin-bottom: 5px;
 	display: block;
@@ -509,7 +509,7 @@
 		margin-top: 2px;
 	}
 
-	.universal-form__name-field>input {
+	.universal-form__field>input {
 		height: 51px;
 	}
 
