@@ -329,7 +329,7 @@ BX.namespace('BX.JCWebForm');
 
 		// Проверка input'a на пустой value
 		fieldEmpty: function (field) {
-			if (event != undefined && event.target.constructor.name == 'HTMLInputElement') field = event.target;
+			if (event != undefined) field = event.target;
 
 			if (field.value.length == '') {
 				field.parentNode.classList.remove('universal-form__field-not-empty');
