@@ -321,7 +321,7 @@ BX.namespace('BX.JCWebForm');
 			let field;
 
 			for (var index in arrayField) {
-				if (arrayField[index].TYPE == 'hidden') continue;
+				if (arrayField[index].TYPE == 'hidden' || arrayField[index].TYPE == 'radio') continue;
 				field = document.querySelector("[name='" + arrayField[index].DATA_NAME + "']");
 				BX.bind(field, 'input', this.fieldEmpty);
 			};
