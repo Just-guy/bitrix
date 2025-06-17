@@ -130,7 +130,6 @@ $jsParams += [
 	'PATH_TO_AJAX_RESULT' => $templateFolder . '/ajax-result.php',
 	'USE_CAPTCHA' => $arResult["isUseCaptcha"],
 	'OPEN_FORM_IN_MODAL_WINDOW' => $arParams["OPEN_FORM_IN_MODAL_WINDOW"],
-	'CALLING_VIA_AJAX' => $arParams["CALLING_VIA_AJAX"],
 	'SUCCESSFUL_RESULT_SEPARATE_WINDOW' => $arParams["SUCCESSFUL_RESULT_SEPARATE_WINDOW"],
 	'FORM_ID' => $formId,
 	'CLASS_FORM_CALL_BUTTON' => $formCallButton,
