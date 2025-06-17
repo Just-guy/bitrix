@@ -35,10 +35,6 @@ $jsParams = []; ?>
 						<? $type = $valueQuestion["STRUCTURE"][0]["FIELD_TYPE"];
 						$name = "form_" . $type . "_" . $valueQuestion["STRUCTURE"][0]["ID"]; ?>
 						<div class="universal-form__field-<?= $type ?> universal-form__name-field<?= $class ?>">
-							<p class="universal-form__text-name">
-								<?= $valueQuestion["CAPTION"] ?>
-								<? if ($valueQuestion["REQUIRED"] == 'Y') : ?><span class="universal-form__required">*</span> <? endif; ?>
-							</p>
 							<? if (isset($arResult["FORM_ERRORS"][$keyQuestion])): ?>
 								<span class="form-error"><?= htmlspecialcharsbx($arResult["FORM_ERRORS"][$keyQuestion]) ?></span>
 							<? endif; ?>
@@ -53,7 +49,8 @@ $jsParams = []; ?>
 
 							<? switch ($type) {
 								case 'text': ?>
-									<input type="<?= $type ?>" name="<?= $name ?>" placeholder="<?= $valueQuestion["CAPTION"] ?><? if ($valueQuestion["REQUIRED"] == 'Y') : ?>*<? endif; ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> value="">
+									<span class="universal-form__name"><?= $valueQuestion["CAPTION"] ?><? if ($valueQuestion["REQUIRED"] == 'Y') : ?>*<? endif; ?></span>
+									<input type="<?= $type ?>" name="<?= $name ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> value="">
 									<? break;
 
 								case 'radio':
