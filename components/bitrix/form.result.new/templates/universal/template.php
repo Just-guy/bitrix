@@ -15,7 +15,7 @@ $jsParams = []; ?>
 <? if ($arParams["CALLING_VIA_AJAX"] == "Y"): ?>
 	<a href="javascript:void(0)" class="<?= $formCallButton ?>"><?= $arParams['NAME_FORM_CALL_BUTTON'] ?></a>
 <? else: ?>
-	<? $formId = 'found-it-cheaper-' . uniqid(); ?>
+	<? $formId = 'universal-form-' . uniqid(); ?>
 	<div class="universal-form" id="<?= $formId ?>">
 		<div class="universal-form__shell">
 			<? if (!empty($arParams['TITLE']) || !empty($arResult["arForm"]["NAME"])):  ?>

@@ -115,32 +115,32 @@ BX.namespace('BX.JCWebForm');
 					if (this.successfulResultSeparateWindow == "Y") {
 						if (this.openFormInModalWindow == "Y") this.popupObject.close();
 
-						this.popupObjectSuccess = new BX.PopupWindow('found-it-cheaper__succesfull-' + Math.random().toString(16).slice(2), null, {
-							content: `<div class="found-it-cheaper__icon"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 19.5L13.5 25.5L28.5 10.5" stroke="#E85231" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="found-it-cheaper__title">${this.titleSuccessfulResult}</div><div class="found-it-cheaper__description">${this.descriptionSuccessfulResult}</div><div class="found-it-cheaper__close-button">Ок</div>`,
+						this.popupObjectSuccess = new BX.PopupWindow('universal-form__succesfull-' + Math.random().toString(16).slice(2), null, {
+							content: `<div class="universal-form__icon"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 19.5L13.5 25.5L28.5 10.5" stroke="#E85231" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="universal-form__title">${this.titleSuccessfulResult}</div><div class="universal-form__description">${this.descriptionSuccessfulResult}</div><div class="universal-form__close-button">Ок</div>`,
 							autoHide: true,
 							offsetTop: 1,
 							offsetLeft: 0,
 							lightShadow: true,
 							closeIcon: true,
 							closeByEsc: true,
-							className: 'found-it-cheaper__succesfull found-it-cheaper__final-result',
+							className: 'universal-form__succesfull universal-form__final-result',
 							overlay: {
 								backgroundColor: 'black', opacity: '80'
 							},
 						});
 						this.popupObjectSuccess.show();
 
-						this.popupObjectSuccess.popupContainer.querySelector('.found-it-cheaper__close-button').addEventListener('click', () => {
+						this.popupObjectSuccess.popupContainer.querySelector('.universal-form__close-button').addEventListener('click', () => {
 							this.popupObjectSuccess.close();
 						});
 
 						if (this.openFormInModalWindow == "N") this.clearForm(data.ARRAY_INPUTS);
 					} else {
 						this.clearMessage();
-						if (this.lastResult != null) this.form.closest('.found-it-cheaper').classList.remove(this.lastResult);
+						if (this.lastResult != null) this.form.closest('.universal-form').classList.remove(this.lastResult);
 
-						this.lastResult = 'found-it-cheaper__result_' + data.RESULT;
-						this.form.closest('.found-it-cheaper').classList.add(this.lastResult);
+						this.lastResult = 'universal-form__result_' + data.RESULT;
+						this.form.closest('.universal-form').classList.add(this.lastResult);
 						this.showMessage(data.MESSAGE);
 						this.clearForm(data.ARRAY_INPUTS);
 					}
@@ -149,29 +149,29 @@ BX.namespace('BX.JCWebForm');
 					if (this.successfulResultSeparateWindow == "Y") {
 						if (this.openFormInModalWindow == "Y") this.popupObject.close();
 
-						this.popupObjectSuccess = new BX.PopupWindow('found-it-cheaper__failure-' + Math.random().toString(16).slice(2), null, {
-							content: `<div class="found-it-cheaper__icon"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.9993 13.5V16.5M17.9993 22.5H18.0143M7.60701 28.5H28.3916C30.701 28.5 32.1444 26 30.9897 24L20.5974 6C19.4427 4 16.5559 4 15.4012 6L5.00894 24C3.85424 26 5.29761 28.5 7.60701 28.5Z" stroke="#5A616C" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="found-it-cheaper__title">${this.titleFailureResult}</div><div class="found-it-cheaper__description">${this.descriptionFailureResult}</div><div class="found-it-cheaper__close-button">Хорошо</div>`,
+						this.popupObjectSuccess = new BX.PopupWindow('universal-form__failure-' + Math.random().toString(16).slice(2), null, {
+							content: `<div class="universal-form__icon"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.9993 13.5V16.5M17.9993 22.5H18.0143M7.60701 28.5H28.3916C30.701 28.5 32.1444 26 30.9897 24L20.5974 6C19.4427 4 16.5559 4 15.4012 6L5.00894 24C3.85424 26 5.29761 28.5 7.60701 28.5Z" stroke="#5A616C" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="universal-form__title">${this.titleFailureResult}</div><div class="universal-form__description">${this.descriptionFailureResult}</div><div class="universal-form__close-button">Хорошо</div>`,
 							autoHide: true,
 							offsetTop: 1,
 							offsetLeft: 0,
 							lightShadow: true,
 							closeIcon: true,
 							closeByEsc: true,
-							className: 'found-it-cheaper__failure found-it-cheaper__final-result',
+							className: 'universal-form__failure universal-form__final-result',
 							overlay: {
 								backgroundColor: 'black', opacity: '80'
 							},
 						});
 						this.popupObjectSuccess.show();
 
-						this.popupObjectSuccess.popupContainer.querySelector('.found-it-cheaper__close-button').addEventListener('click', () => {
+						this.popupObjectSuccess.popupContainer.querySelector('.universal-form__close-button').addEventListener('click', () => {
 							this.popupObjectSuccess.close();
 						});
 
 						if (this.openFormInModalWindow == "N") this.clearForm(data.ARRAY_INPUTS);
 					} else {
 						this.clearMessage();
-						this.form.closest('.found-it-cheaper').classList.add('found-it-cheaper__result_false');
+						this.form.closest('.universal-form').classList.add('universal-form__result_false');
 						this.showMessage('FORM_TITLE_FALSE')
 						this.clearForm(data.ARRAY_INPUTS);
 					}
@@ -194,6 +194,7 @@ BX.namespace('BX.JCWebForm');
 		},
 
 		formFieldValues: function (arrayField) {
+			debugger
 			let field, resultValue = [];
 
 			for (var index in arrayField) {
@@ -247,6 +248,7 @@ BX.namespace('BX.JCWebForm');
 		},
 
 		fieldValidation: function (field) {
+			debugger
 			let message, validation, type, pattern;
 
 			type = field.dataset.validation;
