@@ -23,8 +23,8 @@ $arTemplateParameters = array(
 		"TYPE" => "STRING",
 		"DEFAULT" => "",
 	),
-	"FORMAT_SUCCESSFUL_RESULT" => array(
-		"NAME" => GetMessage("U_FORMAT_SUCCESSFUL_RESULT"),
+	"SUCCESSFUL_RESULT_SEPARATE_WINDOW" => array(
+		"NAME" => GetMessage("U_SUCCESSFUL_RESULT_SEPARATE_WINDOW"),
 		"TYPE" => "CHECKBOX",
 		"DEFAULT" => "N",
 		"REFRESH" => "Y",
@@ -32,7 +32,7 @@ $arTemplateParameters = array(
 	"USER_CONSENT" => array()
 );
 
-if($arCurrentValues["FORMAT_SUCCESSFUL_RESULT"] == "Y") {
+if($arCurrentValues["SUCCESSFUL_RESULT_SEPARATE_WINDOW"] == "Y") {
 	$arTemplateParameters["TITLE_SUCCESSFUL_RESULT"] = array(
 		"NAME" => GetMessage("U_TITLE_SUCCESSFUL_RESULT"),
 		"TYPE" => "STRING",
