@@ -100,7 +100,7 @@ BX.namespace('BX.JCWebForm');
 			fieldValues = this.formFieldValues(this.arrayInputs);
 
 			BX.PreventDefault(event);
-			if (this.error == true && this.agreementVerified == false) return false;
+			if (this.error == true || this.agreementVerified == false) return false;
 
 			BX.ajax.submitAjax(this.form, {
 				url: this.pathToAjaxResult,
