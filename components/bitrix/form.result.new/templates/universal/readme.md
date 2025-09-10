@@ -37,3 +37,12 @@ $APPLICATION->IncludeComponent(
 	false
 );
 ```
+
+# Дополнение
+Для валидации поля с номером телефона в настройках самого поля найти поле «Параметры»:
+<img width="1422" height="320" alt="image" src="https://github.com/user-attachments/assets/e64ee36b-5715-4b92-9015-17539aaf8241" />
+
+И добавить строку:
+```html
+data-validation="telephone"
+```
