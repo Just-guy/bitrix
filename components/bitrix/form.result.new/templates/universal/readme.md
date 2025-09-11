@@ -38,11 +38,25 @@ $APPLICATION->IncludeComponent(
 );
 ```
 
-# Дополнение
-Для валидации поля с номером телефона в настройках самого поля найти поле «Параметры»:
+# Валидация полей
+Для валидации поля в настройках найти поле «Параметры»:
 <img width="1422" height="320" alt="image" src="https://github.com/user-attachments/assets/e64ee36b-5715-4b92-9015-17539aaf8241" />
 
-И добавить строку:
+Для телефона добавить строку:
 ```html
 data-validation="telephone"
 ```
+
+Для email добавить строку:
+```html
+data-validation="email"
+```
+
+# Особенности
+В решениях Aspro есть параметр <b>$arTheme['SHOW_LICENCE']</b> = «Информирование об обработке персональных данных»:
+<img width="1403" height="617" alt="image" src="https://github.com/user-attachments/assets/0b328a8a-6065-4b5d-9856-88de781cb6ce" />
+В случае, если форме нам нет необходимости использовать соглашение, но активен параметр <b>SHOW_LICENCE</b>, мы не сможем сохранить результат формы.
+
+Кастомный обработчик события <b>onBeforeResultAddHandler»</b> будет «выкидывать» Exception с сообщение «Согласитесь с условиями»:
+<img width="1199" height="277" alt="image" src="https://github.com/user-attachments/assets/80fe11f3-4b15-4f02-834f-1c150861a2a2" />
+
