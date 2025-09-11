@@ -45,10 +45,10 @@ BX.namespace('BX.JCWebForm');
 
 			if (this.sendFormButton != null) {
 				BX.bind(this.form, 'submit', BX.proxy(this.sendForm, this));
-
+				
 				BX.bind(this.sendFormButton, 'click', function () {
 					BX.onCustomEvent(this.submitEventName, []);
-				});
+				}.bind(this));
 			}
 		},
 
