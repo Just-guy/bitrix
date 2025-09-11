@@ -55,7 +55,7 @@ $jsParams = []; ?>
 							<? switch ($type) {
 								case 'text': ?>
 									<input type="<?= $type ?>" name="<?= $name ?>" placeholder="<?= $valueQuestion["CAPTION"] ?><? if ($valueQuestion["REQUIRED"] == 'Y') : ?>*<? endif; ?>" <?= $valueQuestion["STRUCTURE"][0]["FIELD_PARAM"] ?> value="">
-									<? break;
+								<? break;
 
 								case 'radio':
 									$jsParams['INPUTS'][$keyQuestion]['ID'] = [];
