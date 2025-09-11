@@ -309,7 +309,7 @@ BX.namespace('BX.JCWebForm');
 					control,
 					BX.UserConsent.events.save,
 					BX.proxy(function (data) {
-						this.agreementVerified = false;
+						this.agreementVerified = true;
 					}, this)
 				);
 
@@ -317,7 +317,7 @@ BX.namespace('BX.JCWebForm');
 					control,
 					BX.UserConsent.events.refused,
 					BX.proxy(function (data) {
-						this.agreementVerified = true;
+						this.agreementVerified = false;
 					}, this)
 				);
 			}
