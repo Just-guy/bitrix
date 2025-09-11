@@ -6,6 +6,7 @@ $this->addExternalJS($templateFolder . "/vendor/node/node_modules/imask/dist/ima
 CJSCore::Init(['popup']);
 
 use Bitrix\Main\Localization\Loc;
+use \Bitrix\Main\Loader;
 
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 $callingForm = $request->getPost('calling_form');
@@ -100,6 +101,17 @@ $jsParams = []; ?>
 								width="180" height="40" />
 						</div>
 					<? endif; ?>
+
+					<? if (Loader::includeModule('aspro.max') || Loader::includeModule('aspro.next')): ?>
+						<input type="hidden" name="licenses_popup" value="Y">
+						<input type="hidden" name="licenses_inline" value="Y">
+
+						<? $jsParams['INPUTS']['licenses_popup']['TYPE'] = 'hidden';
+						$jsParams['INPUTS']['licenses_popup']['DATA_NAME'] = 'licenses_popup';
+						$jsParams['INPUTS']['licenses_inline']['TYPE'] = 'hidden';
+						$jsParams['INPUTS']['licenses_inline']['DATA_NAME'] = 'licenses_inline'; ?>
+					<? endif; ?>
+
 					<div class="universal-form__field-submit universal-form__action-block">
 						<input <?= (intval($arResult["F_RIGHT"]) < 10 ? "disabled=\"disabled\"" : ""); ?> type="submit" class="form-submit btn" name="web_form_submit" value="<?= htmlspecialcharsbx(strlen(trim($arResult["arForm"]["BUTTON"])) <= 0 ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>" />
 					</div>
