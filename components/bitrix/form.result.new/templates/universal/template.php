@@ -144,6 +144,7 @@ $jsParams += [
 	"CALLING_FORM" => $callingForm,
 	"SUBMIT_EVENT_NAME" => $arParams["COMPONENT_TEMPLATE"],
 	"USER_CONSENT" => $arParams["USER_CONSENT"],
+	"USER_CONSENT_IS_CHECKED" => $arParams["USER_CONSENT_IS_CHECKED"]
 ];
 
 if (!empty($arParams["TITLE_SUCCESSFUL_RESULT"])) $jsParams['TITLE_SUCCESSFUL_RESULT'] = $arParams["TITLE_SUCCESSFUL_RESULT"];

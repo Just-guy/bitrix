@@ -18,7 +18,9 @@ BX.namespace('BX.JCWebForm');
 			this.titleSuccessfulResult = this.result.TITLE_SUCCESSFUL_RESULT;
 			this.callingForm = this.result.CALLING_FORM;
 			this.submitEventName = this.result.SUBMIT_EVENT_NAME;
-			this.agreementVerified = (this.result.USER_CONSENT == 'Y' ? true : false);
+			this.userConsent = this.result.USER_CONSENT;
+			this.userConsentIsChecked = this.result.USER_CONSENT_IS_CHECKED;
+			this.agreementVerified = (this.userConsent == 'N' || (this.userConsent == 'Y' && this.userConsentIsChecked == 'Y') ? true : false);
 			this.lastResult = null;
 
 			if (this.form != null) {
