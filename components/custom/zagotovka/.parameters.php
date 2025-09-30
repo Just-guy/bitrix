@@ -62,12 +62,12 @@ while ($arrayElement = $objectElement->Fetch()) {
 }
 
 $propertyArray = PropertyTable::getList([
-	'select' => ['*'],
+	'select' => ['ID', 'CODE', 'NAME'],
 	'filter' => ['IBLOCK_ID' => $arCurrentValues["IBLOCK_ID"]],
 ])->fetchAll();
 
 foreach ($propertyArray as $property) {
-	$finalPropertyArray[$property['ID']] = $property['NAME'];
+	$finalPropertyArray['PROPERTY_' . $property["CODE"]] = $property['NAME'];
 }
 
 $ext = 'wmv,wma,flv,vp6,mp3,mp4,aac,jpg,jpeg,gif,png';
