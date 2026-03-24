@@ -17,3 +17,40 @@
 .main-map {
 	margin-bottom: 70px;
 }
+
+/* TODO (min-width:1201px) */
+@media (min-width:1201px) {}
+
+/* TODO (max-width:1200px) */
+@media (max-width:1200px) {}
+
+/* TODO (min-width:992px) and (max-width:1200px) */
+@media (min-width:992px) and (max-width:1200px) {}
+
+/* TODO (min-width:992px) */
+@media (min-width:992px) {}
+
+/* TODO (max-width:991px) */
+@media (max-width:991px) {}
+
+/* TODO (min-width:768px) and (max-width:991px) */
+@media (min-width:768px) and (max-width:991px) {}
+
+/* TODO (min-width:768px) */
+@media (min-width:768px) {}
+
+/* TODO (max-width:767px) */
+@media (max-width:767px) {}
+
+/* TODO (min-width:576px) and (max-width:767px) */
+@media (min-width:576px) and (max-width:767px) {}
+
+/* TODO (min-width:576px) */
+@media (min-width:576px) {}
+
+/* TODO (max-width:575px) */
+@media (max-width:575px) {
+	.main-map {
+		display: flex;
+	}
+}
